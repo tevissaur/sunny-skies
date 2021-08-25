@@ -8,7 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/style/style.css">
-    <title>Document</title>
+    <title>
+        Weather Dashboard
+    </title>
 </head>
 
 <body>
@@ -22,9 +24,8 @@
         </nav>
     </header>
     <main class="bg-opacity-50 bg-primary">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-lg-3 col-sm-8 px-sm-1 px-lg-5 py-3">
-                <div class="flex-direction-column">
                     <form>
                         <label for="city-input" class="form-label h3 ">Search for a city:</label>
                         <input class="form-control" id="city-input" list="cities" placeholder="City Name...">
@@ -33,12 +34,16 @@
                         </datalist>
                         <button class="btn btn-primary w-100 my-3" id="search">Search</button>
                     </form>
-                </div>
             </div>
-            <div class="col-6"></div>
-            <div class="col-3 px-3 py-5">
-                <div class="row">
-                    <div class="cloud float col-6" id="cloud"></div>
+            <div class="col-5" id="todays-weather">
+            </div>
+            <div class="col-4 px-3 py-5">
+                <div class="row float-end" id="weather-status">
+                    <!-- Create animated weather elements in JS -->
+                    <svg class="lightning" viewBox="0 0 100 150">
+                        <polygon stroke="yellow" fill="yellow" points="100,0 67,50 90,45 47,100 70,95 0,150 27,110 12,113 50,70 30,73 100,0" />
+                      </svg>
+                    <div class="cloud float" id="cloud"></div>
                     <div class="sun"></div>
                     
                 </div>

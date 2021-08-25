@@ -9,14 +9,11 @@
     width: 200px;
     height: 200px;
     top: -140px;
-    right: 500px;
     transition: all 0.75s;
 }
 
 .cloud {
     position: relative;
-    top: 100px;
-    right: 500px;
     width: 350px;
     height: 120px;
     background: #ECEFF1;
@@ -24,10 +21,6 @@
     box-shadow: 10px 10px rgba(0,0,0,0.2);
     z-index: 2;
     transition: all 0.75s;
-}
-
-.sun.away {
-    right: 0px;
 }
 
 .cloud.float {
@@ -38,8 +31,10 @@
     animation-timing-function: linear;
 }
 
-.cloud.away {
-    right: 0px;
+.lightning {
+    position: relative;
+    width: 100px;
+    height: 200px;
 }
 
 @keyframes float {
