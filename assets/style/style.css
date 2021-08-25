@@ -1,3 +1,7 @@
+.navbar-brand {
+    font-size: 1.8em;
+}
+
 .sun {
     position: relative;
     background: #fff023;

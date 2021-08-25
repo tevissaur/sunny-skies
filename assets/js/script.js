@@ -18,27 +18,31 @@ for (let i in cities) {
     let optionsElem = document.createElement('option')
     optionsElem.setAttribute('value', i)
     citiesDataList.appendChild(optionsElem)
-    console.log(i, cities[i])
 }
 
 // TO CONVERT UNIX EPOCH TO MS  =>  timeInS * 1000
 
 // Sends request
+// TODO: Display the data to the DOM
 searchButton.addEventListener('click', function (e) {
     e.preventDefault()
-    let city = searchInput.value
-    let lat = cities[city]['lat']
-    let lon = cities[city]['lon']
-    console.log(city)
-    let customCall = `?lat=${lat}&lon=${lon}&appid=${APIkey}`
-    // Put in then() function after fetch is recieved
-    fetch(baseUrl + customCall)
-        .then(response => {
-            return response.json()
-        })
-        .then(data => {
-            console.log(data)
-        })
-    // cloud.classList.toggle('away')
-    // sun.classList.toggle('away')
+    try {
+        let city = searchInput.value
+        let lat = cities[city]['lat']
+        let lon = cities[city]['lon']
+        console.log(city)
+        let customCall = `?lat=${lat}&lon=${lon}&appid=${APIkey}`
+        fetch(baseUrl + customCall)
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                console.log(data)
+            })
+            cloud.classList.add('away')
+            sun.classList.add('away')
+    }
+    catch(err) {
+        console.log(err)
+    }
 })
