@@ -22,8 +22,8 @@
         </nav>
     </header>
     <main class="bg-opacity-50 bg-primary">
-        <div class="row flex-lg-row flex-sm-column">
-            <div class="col-3 px-5 py-3">
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-sm-8 px-sm-1 px-lg-5 py-3">
                 <div class="flex-direction-column">
                     <form>
                         <label for="city-input" class="form-label h3 ">Search for a city:</label>
@@ -31,22 +31,23 @@
                         <datalist id="cities">
                             
                         </datalist>
-                        <button class="btn btn-primary w-100 my-3">Search</button>
+                        <button class="btn btn-primary w-100 my-3" id="search">Search</button>
                     </form>
                 </div>
             </div>
-            <div class="col-9 px-3 py-5">
+            <div class="col-6"></div>
+            <div class="col-3 px-3 py-5">
                 <div class="row">
-                    <div class="cloud"></div>
-                    <div class="cloud"></div>
-
+                    <div class="cloud float col-6" id="cloud"></div>
+                    <div class="sun"></div>
+                    
                 </div>
             </div>
         </div>
     </main>
 
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
         crossorigin="anonymous"></script>

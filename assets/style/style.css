@@ -1,26 +1,49 @@
+.sun {
+    position: relative;
+    background: #fff023;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    top: -140px;
+    right: 500px;
+    transition: all 0.75s;
+}
+
 .cloud {
     position: relative;
-    top: 50px;
-    left: 0px;
-    margin: 50px 20px;
+    top: 100px;
+    right: 500px;
     width: 350px;
     height: 120px;
     background: #ECEFF1;
     border-radius: 100px;
     box-shadow: 10px 10px rgba(0,0,0,0.2);
+    z-index: 2;
+    transition: all 0.75s;
+}
+
+.sun.away {
+    right: 0px;
+}
+
+.cloud.float {
     animation-name: float;
-    animation-duration: 1s;
+    animation-duration: 300ms;
     animation-iteration-count: infinite;
     animation-direction: alternate;
     animation-timing-function: linear;
 }
 
+.cloud.away {
+    right: 0px;
+}
+
 @keyframes float {
     0% {
-        top: 50px;
+        top: 100px;
     }
     100% {
-        top: 60px;
+        top: 97px;
     }
 }
 
