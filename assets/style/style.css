@@ -1,15 +1,16 @@
 .navbar-brand {
     font-size: 1.8em;
 }
-
+main {
+    height: 100vh;
+}
 .sun {
     position: relative;
     background: #fff023;
     border-radius: 50%;
     width: 200px;
     height: 200px;
-    top: -140px;
-    transition: all 0.75s;
+    left: -340px;
 }
 
 .cloud {
@@ -20,7 +21,6 @@
     border-radius: 100px;
     box-shadow: 10px 10px rgba(0,0,0,0.2);
     z-index: 2;
-    transition: all 0.75s;
 }
 
 .cloud.float {
