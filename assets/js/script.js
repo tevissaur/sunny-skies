@@ -9,13 +9,17 @@ let cityForm = document.getElementById('city-form')
 // Today's date
 let date = moment().format('M/D/YYYY')
 
+// TODO: Create a new button everytime someone searches, possibly with an array?
+let searchHistoryButton
 let searchHistory = searched => {
     let searchCount = 0
     if (searchCount < 5) {
-        let searchHistoryButton = document.createElement('button')
         searchHistoryButton.classList.add('btn', 'btn-secondary')
         searchHistoryButton.innerText = searched
-        searchHistoryButton.addEventListener('click', searchButton(history=true))
+        searchHistoryButton.addEventListener('click', function(e) {
+            e.preventDefault()
+            search(history=true)
+        })
         cityForm.appendChild(searchHistoryButton)
     }
     else {
@@ -148,12 +152,11 @@ function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
 // TO CONVERT UNIX EPOCH TO MS  =>  timeInS * 1000
 
 
-function searchButton(e, history=false) {
-    e.preventDefault()
+function search(history=false) {
     let city
     try {
         if (history) {
-            city = searchHistoryButton.value
+            city = searchHistoryButton.innerText
         } else {
             city = searchInput.value
         }
@@ -212,9 +215,12 @@ function searchButton(e, history=false) {
     catch (err) {
         console.log(err)
     }
-    searchHistory(searchInput.value)
+    searchHistory(city)
     searchInput.value = ''
 }
 // Sends request
 // // TODO: Display the data to the DOM
-searchButton.addEventListener('click', searchButton)
+searchButton.addEventListener('click', function(e) {
+    e.preventDefault()
+    search()
+})
