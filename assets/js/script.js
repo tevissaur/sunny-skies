@@ -5,25 +5,43 @@ let searchInput = document.getElementById('city-input')
 let todaysWeather = document.getElementById('todays-weather')
 let forecastEl = document.getElementById('forecast')
 let cityForm = document.getElementById('city-form')
+let pastSearchContainer = document.getElementById('past-searches')
 
 // Today's date
 let date = moment().format('M/D/YYYY')
 
-// TODO: Create a new button everytime someone searches, possibly with an array?
-let searchHistoryButton
+// Build Search History
+let pastSearches = []
 let searchHistory = searched => {
-    let searchCount = 0
-    if (searchCount < 5) {
-        searchHistoryButton.classList.add('btn', 'btn-secondary')
+    pastSearchContainer.innerHTML = ''
+    if (pastSearches.length === 0) {
+        pastSearches.push(searched)
+        let searchHistoryButton = document.createElement('button')
+        searchHistoryButton.classList.add('btn', 'btn-secondary', 'my-3', 'w-100')
         searchHistoryButton.innerText = searched
-        searchHistoryButton.addEventListener('click', function(e) {
+        searchHistoryButton.addEventListener('click', function (e) {
             e.preventDefault()
-            search(history=true)
+            search(e.target, history = true)
         })
-        cityForm.appendChild(searchHistoryButton)
-    }
-    else {
-        return
+        pastSearchContainer.appendChild(searchHistoryButton)
+    } else {
+        for (let i in pastSearches) {
+            pastSearches.push(searched)
+            if (pastSearches.length === 5) {
+                pastSearches.shift()
+            }
+            let searchHistoryButton = document.createElement('button')
+            searchHistoryButton.classList.add('btn', 'btn-secondary', 'my-3', 'w-100')
+            searchHistoryButton.innerText = pastSearches[i]
+            searchHistoryButton.addEventListener('click', function (e) {
+                e.preventDefault()
+                search(e.target, history = true)
+            })
+            pastSearchContainer.appendChild(searchHistoryButton)
+
+
+        }
+
     }
 }
 
@@ -86,14 +104,14 @@ function createWeatherCard(city, temp, wind, humidity, UVindex, weather) {
         listItem.style.textTransform = 'capitalize'
         if (paramsArray[i] === temp) {
             listItem.innerHTML = 'Temp: ' + paramsArray[i] + '&#176; F'
-        }else if (paramsArray[i] === wind) {
+        } else if (paramsArray[i] === wind) {
             listItem.innerHTML = 'Wind Speed: ' + paramsArray[i] + ' MPH'
-        }else if (paramsArray[i] === humidity) {
+        } else if (paramsArray[i] === humidity) {
             listItem.innerHTML = 'Humidity: ' + paramsArray[i] + '%'
-        }else if (paramsArray[i] === UVindex) {
+        } else if (paramsArray[i] === UVindex) {
             listItem.innerHTML = 'UV Index: ' + paramsArray[i]
             listItem.setAttribute('id', 'UVindex')
-        }else if (paramsArray[i] === weather) {
+        } else if (paramsArray[i] === weather) {
             listItem.innerHTML = 'Weather: ' + paramsArray[i].description
         }
         cardList.appendChild(listItem)
@@ -104,7 +122,7 @@ function createWeatherCard(city, temp, wind, humidity, UVindex, weather) {
 function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
     let paramsArray = [temp, wind, humidity, UVindex, weather]
     console.log(day, temp, wind, humidity, UVindex, weather)
-    
+
 
     // Creating Elements
     let weatherCard = document.createElement('div')
@@ -134,14 +152,14 @@ function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
         listItem.style.textTransform = 'capitalize'
         if (paramsArray[i] === temp) {
             listItem.innerHTML = 'Temp: ' + paramsArray[i] + '&#176; F'
-        }else if (paramsArray[i] === wind) {
+        } else if (paramsArray[i] === wind) {
             listItem.innerHTML = 'Wind Speed: ' + paramsArray[i] + ' MPH'
-        }else if (paramsArray[i] === humidity) {
+        } else if (paramsArray[i] === humidity) {
             listItem.innerHTML = 'Humidity: ' + paramsArray[i] + '%'
-        }else if (paramsArray[i] === UVindex) {
+        } else if (paramsArray[i] === UVindex) {
             listItem.innerHTML = 'UV Index: ' + paramsArray[i]
             listItem.setAttribute('id', 'UVindex')
-        }else if (paramsArray[i] === weather) {
+        } else if (paramsArray[i] === weather) {
             listItem.innerHTML = 'Weather: ' + paramsArray[i].description
         }
         cardList.appendChild(listItem)
@@ -152,11 +170,12 @@ function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
 // TO CONVERT UNIX EPOCH TO MS  =>  timeInS * 1000
 
 
-function search(history=false) {
+// Sends the API call
+function search(target, history = false) {
     let city
     try {
         if (history) {
-            city = searchHistoryButton.innerText
+            city = target.innerText
         } else {
             city = searchInput.value
         }
@@ -211,16 +230,16 @@ function search(history=false) {
                 })
 
         }
+        searchHistory(city)
     }
     catch (err) {
         console.log(err)
     }
-    searchHistory(city)
     searchInput.value = ''
 }
 // Sends request
 // // TODO: Display the data to the DOM
-searchButton.addEventListener('click', function(e) {
+searchButton.addEventListener('click', function (e) {
     e.preventDefault()
     search()
 })

@@ -1,9 +1,6 @@
 .navbar-brand {
     font-size: 1.8em;
 }
-#UVindex {
-    
-}
 main {
     height: 100vh;
 }
@@ -17,7 +14,8 @@ html {
 .w-fit-content {
     width: fit-content!important;
 }
-.sun {
+
+/* .sun {
     position: relative;
     background: #fff023;
     border-radius: 50%;
@@ -79,4 +77,4 @@ html {
     height:180px;
     top: -70px;
     left:130px;
-}
+} */
