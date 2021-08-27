@@ -10,14 +10,14 @@ let pastSearchContainer = document.getElementById('past-searches')
 // Today's date
 let date = moment().format('M/D/YYYY')
 
-// Build Search History
+// Build Search History Buttons
 let pastSearches = []
 let searchHistory = searched => {
     pastSearchContainer.innerHTML = ''
     if (pastSearches.length === 0) {
         pastSearches.push(searched)
         let searchHistoryButton = document.createElement('button')
-        searchHistoryButton.classList.add('btn', 'btn-secondary', 'my-3', 'w-100')
+        searchHistoryButton.classList.add('btn', 'btn-secondary', 'my-3', 'w-100', 'transition-all')
         searchHistoryButton.innerText = searched
         searchHistoryButton.addEventListener('click', function (e) {
             e.preventDefault()
@@ -25,13 +25,13 @@ let searchHistory = searched => {
         })
         pastSearchContainer.appendChild(searchHistoryButton)
     } else {
+        pastSearches.push(searched)
         for (let i in pastSearches) {
-            pastSearches.push(searched)
             if (pastSearches.length === 5) {
                 pastSearches.shift()
             }
             let searchHistoryButton = document.createElement('button')
-            searchHistoryButton.classList.add('btn', 'btn-secondary', 'my-3', 'w-100')
+            searchHistoryButton.classList.add('btn', 'btn-secondary', 'my-3', 'w-100', 'transition-all')
             searchHistoryButton.innerText = pastSearches[i]
             searchHistoryButton.addEventListener('click', function (e) {
                 e.preventDefault()
@@ -67,7 +67,6 @@ fetch('./assets/py_scripts/cities.json')
         }
     })
 
-// http://openweathermap.org/img/wn/${id}@2x.png
 // Generates the weather card for today's weather
 function createWeatherCard(city, temp, wind, humidity, UVindex, weather) {
     let paramsArray = [temp, wind, humidity, UVindex, weather]
@@ -81,7 +80,7 @@ function createWeatherCard(city, temp, wind, humidity, UVindex, weather) {
     let cardList = document.createElement('ul')
 
     // Adding classes, textContent and attributes
-    weatherCard.classList.add('card', 'my-5', 'm-auto', 'w-75', 'col-12')
+    weatherCard.classList.add('card', 'my-5', 'm-auto', 'w-75', 'col-12', 'transition-all')
     cardHeader.classList.add('card-header', 'row')
     cardTitleImg.classList.add('p-0', 'img-thumbnail')
     cardTitleImg.src = `http://openweathermap.org/img/wn/${weather.icon}.png`
@@ -119,6 +118,7 @@ function createWeatherCard(city, temp, wind, humidity, UVindex, weather) {
     weatherCard.appendChild(cardList)
     todaysWeather.appendChild(weatherCard)
 }
+// Creates Forecast Cards
 function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
     let paramsArray = [temp, wind, humidity, UVindex, weather]
     console.log(day, temp, wind, humidity, UVindex, weather)
@@ -132,7 +132,7 @@ function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
     let cardList = document.createElement('ul')
 
     // Adding classes, textContent and attributes
-    weatherCard.classList.add('card', 'm-2', 'm-auto', 'col-sm-12', 'col-md-12', 'col-lg-2')
+    weatherCard.classList.add('card', 'm-2', 'm-auto', 'col-sm-12', 'col-md-12', 'col-lg-2', 'transition-all')
     cardHeader.classList.add('card-header', 'row')
     cardTitleImg.classList.add('p-0', 'img-thumbnail')
     cardTitleImg.src = `http://openweathermap.org/img/wn/${weather.icon}.png`
@@ -167,8 +167,6 @@ function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
     weatherCard.appendChild(cardList)
     forecastEl.appendChild(weatherCard)
 }
-// TO CONVERT UNIX EPOCH TO MS  =>  timeInS * 1000
-
 
 // Sends the API call
 function search(target, history = false) {
@@ -191,11 +189,10 @@ function search(target, history = false) {
             data = JSON.parse(sessionStorage.getItem(city))
             current = data['current']
             forecast = data['daily']
-            // If there are weather alerts, they will be displayed
-            if (data['alerts']) {
-                let alerts = data['alerts']
-            }
-            console.log('Retrieved from session storage: ', JSON.parse(sessionStorage.getItem(city)))
+            // If there are weather alerts, they will be displayed, possibly another day.  I'm exhausted of this hw rn
+            // if (data['alerts']) {
+            //     let alerts = data['alerts']
+            // }
             createWeatherCard(city, current.temp, current.wind_speed, current.humidity, current.uvi, current.weather[0])
             for (let i = 1; i <= 5; i++) {
                 let day = moment((forecast[i].dt) * 1000).format('M/D/YYYY')
@@ -211,10 +208,10 @@ function search(target, history = false) {
                 .then(data => {
                     current = data['current']
                     forecast = data['daily']
-                    // If there are weather alerts, they will be displayed
-                    if (data['alerts']) {
-                        let alerts = data['alerts']
-                    }
+                    // If there are weather alerts, they will be displayed, possibly another day.  I'm exhausted of this hw rn
+                    // if (data['alerts']) {
+                    //     let alerts = data['alerts']
+                    // }
                     // Send today's weather
                     createWeatherCard(city, current.temp, current.wind_speed, current.humidity, current.uvi, current.weather[0])
                     // Send the forecast for 5 days
@@ -237,8 +234,8 @@ function search(target, history = false) {
     }
     searchInput.value = ''
 }
-// Sends request
-// // TODO: Display the data to the DOM
+
+
 searchButton.addEventListener('click', function (e) {
     e.preventDefault()
     search()
