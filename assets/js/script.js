@@ -16,7 +16,7 @@ let todaysWeather = document.getElementById('todays-weather')
 
 
 
-let searchHistory = function(pastSearches) {
+let searchHistory = pastSearches => {
     let searchHistoryButton = document.createElement('button')
     searchHistoryButton.classList.add('btn', 'btn-secondary')
     for (let i in JSON.parse(sessionStorage.getItem()))
@@ -26,6 +26,7 @@ let searchHistory = function(pastSearches) {
 // API Url and Key
 let baseUrl = 'https://api.openweathermap.org/data/2.5/onecall'
 let APIkey = '99614a3bd71c4f4912965f0c6b55b111'
+let APIcalls = 0
 
 
 // City names w lat and lon data 
@@ -73,7 +74,8 @@ function createWeatherCard(city, temp, wind, humidity, UVindex, weather) {
         }else if (paramsArray[i] === humidity) {
             listItem.innerHTML = 'Humidity: ' + paramsArray[i] + '%'
         }else if (paramsArray[i] === UVindex) {
-            listItem.innerHTML = 'UV Index: ' + paramsArray[i] + ' of 10'
+            listItem.innerHTML = 'UV Index: ' + paramsArray[i]
+            listItem.setAttribute('id', 'UVindex')
         }else if (paramsArray[i] === weather) {
             listItem.innerHTML = 'Sky Conditions: ' + paramsArray[i]
         }
@@ -82,8 +84,8 @@ function createWeatherCard(city, temp, wind, humidity, UVindex, weather) {
     weatherCard.appendChild(cardList)
     todaysWeather.appendChild(weatherCard)
 }
-function createForecastCards(forecastData) {
-
+function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
+    console.log(day, temp, wind, humidity, UVindex, weather)
 }
 // TO CONVERT UNIX EPOCH TO MS  =>  timeInS * 1000
 
@@ -94,6 +96,7 @@ searchButton.addEventListener('click', function (e) {
     try {
         let city = searchInput.value
         let current
+        let forecast
         let lat = cities[city]['lat']
         let lon = cities[city]['lon']
         let customCall = `?lat=${lat}&lon=${lon}&exclude=minutely,hourly&units=imperial&appid=${APIkey}`
@@ -102,8 +105,17 @@ searchButton.addEventListener('click', function (e) {
             todaysWeather.innerHTML = ''
             data = JSON.parse(sessionStorage.getItem(city))
             current = data['current']
+            forecast = data['daily']
+            // If there are weather alerts, they will be displayed
+            if (data['alerts']) {
+                let alerts = data['alerts']
+            }
             console.log('Retrieved from session storage: ', JSON.parse(sessionStorage.getItem(city)))
             createWeatherCard(city, current.temp, current.wind_speed, current.humidity, current.uvi, current.weather[0].description)
+            for (let i = 1; i <= 5; i++) {
+                let day = moment((forecast[i].dt) * 1000).format('LLLL')
+                createForecastCards(day, forecast[i].temp.day, forecast[i].wind_speed, forecast[i].humidity, forecast[i].uvi, forecast[i].weather[0].description)
+            }
         } else {
             todaysWeather.innerHTML = ''
             fetch(baseUrl + customCall)
@@ -112,13 +124,23 @@ searchButton.addEventListener('click', function (e) {
                 })
                 .then(data => {
                     current = data['current']
+                    forecast = data['daily']
                     // If there are weather alerts, they will be displayed
                     if (data['alerts']) {
                         let alerts = data['alerts']
                     }
+                    // Send today's weather
                     createWeatherCard(city, current.temp, current.wind_speed, current.humidity, current.uvi, current.weather[0].description)
+                    // Send the forecast for 5 days
+                    for (let i = 1; i <= 5; i++) {
+                        let day = moment((forecast[i].dt) * 1000).format('LLLL')
+                        createForecastCards(day, forecast[i].temp.day, forecast[i].wind_speed, forecast[i].humidity, forecast[i].uvi, forecast[i].weather[0].description)
+                    }
                     sessionStorage.setItem(city, JSON.stringify(data))
-                    console.log('Made API call: ', data)
+                    // Need to keep track of amount of calls to API
+                    APIcalls++
+                    sessionStorage.setItem('APIcalls', APIcalls)
+                    console.log(`Made API call #${JSON.parse(sessionStorage.getItem('APIcalls'))}: `, data)
                 })
 
         }
