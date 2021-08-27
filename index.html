@@ -25,8 +25,8 @@
     </header>
     <main class="bg-opacity-50 bg-primary">
         <div class="row justify-content-center">
-            <div class="col-lg-6 col-sm-8 px-sm-1 px-lg-5 py-3">
-                    <form class="w-75 m-auto">
+            <div class="col-lg-4 col-sm-8 px-sm-1 px-lg-5 py-3">
+                    <form class="m-auto row" id="city-form">
                         <label for="city-input" class="form-label h3 ">Search for a city:</label>
                         <input class="form-control" id="city-input" list="cities" placeholder="City Name...">
                         <datalist id="cities">
@@ -35,7 +35,7 @@
                         <button class="btn btn-primary w-100 my-3" id="search">Search</button>
                     </form>
             </div>
-            <div class="col-lg-6 col-sm-8" id="todays-weather">
+            <div class="row flex-column col-lg-8 col-sm-8" id="todays-weather">
             </div>
             <!-- <div class="col-lg-4 col-sm-8 px-3 py-5">
                 <div class="row justify-content-end" id="weather-status">
@@ -49,12 +49,10 @@
                 </div>
             </div> -->
         </div>
-    </main>
-    <footer class="row">
-        <div class="col-8">
-
+        <div class="row flex-sm-wrap flex-lg-nowrap col-lg-12 m-0 justify-content-around" id="forecast">
+            
         </div>
-    </footer>
+    </main>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
