@@ -47,7 +47,6 @@ let searchHistory = searched => {
 
 // API Url and Key
 let baseUrl = 'https://api.openweathermap.org/data/2.5/onecall'
-let APIkey = '99614a3bd71c4f4912965f0c6b55b111'
 let APIcalls = 0
 
 
@@ -135,7 +134,7 @@ function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
     weatherCard.classList.add('card', 'm-2', 'col-sm-6', 'col-md-12', 'col-lg-2', 'transition-all')
     cardHeader.classList.add('card-header', 'row')
     cardTitleImg.classList.add('p-0', 'img-thumbnail')
-    cardTitleImg.src = `http://openweathermap.org/img/wn/${weather.icon}.png`
+    cardTitleImg.src = `https://openweathermap.org/img/wn/${weather.icon}.png`
     cardTitleDate.classList.add('w-fit-content', 'mb-0', 'mt-1')
     cardTitleDate.textContent = day
     cardList.classList.add('list-group', 'list-group-flush', 'row')
