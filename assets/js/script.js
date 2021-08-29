@@ -80,7 +80,7 @@ function createWeatherCard(city, temp, wind, humidity, UVindex, weather) {
     let cardList = document.createElement('ul')
 
     // Adding classes, textContent and attributes
-    weatherCard.classList.add('card', 'my-5', 'm-auto', 'w-75', 'col-12', 'transition-all')
+    weatherCard.classList.add('card', 'my-5', 'm-auto', 'col-12', 'transition-all')
     cardHeader.classList.add('card-header', 'row')
     cardTitleImg.classList.add('p-0', 'img-thumbnail')
     cardTitleImg.src = `https://openweathermap.org/img/wn/${weather.icon}.png`
@@ -132,7 +132,7 @@ function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
     let cardList = document.createElement('ul')
 
     // Adding classes, textContent and attributes
-    weatherCard.classList.add('card', 'm-2', 'm-auto', 'col-sm-12', 'col-md-12', 'col-lg-2', 'transition-all')
+    weatherCard.classList.add('card', 'm-2', 'col-sm-6', 'col-md-12', 'col-lg-2', 'transition-all')
     cardHeader.classList.add('card-header', 'row')
     cardTitleImg.classList.add('p-0', 'img-thumbnail')
     cardTitleImg.src = `http://openweathermap.org/img/wn/${weather.icon}.png`

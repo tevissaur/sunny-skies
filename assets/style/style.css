@@ -1,9 +1,6 @@
 .navbar-brand {
     font-size: 1.8em;
 }
-main {
-    height: 100vh;
-}
 html {
     overflow-x: hidden;
 }

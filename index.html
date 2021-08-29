@@ -13,19 +13,19 @@
     </title>
 </head>
 
-<body>
+<body class="bg-opacity-50 bg-primary">
     <header>
         <nav class="navbar navbar-dark bg-dark bg-gradient">
-            <div class="container-fluid justify-content-md-center">
+            <div class="container-fluid justify-content-center">
                 <h1 class="navbar-brand m-2">
                     Weather Dashboard
                 </h1>
             </div>
         </nav>
     </header>
-    <main class="bg-opacity-50 bg-primary">
-        <div class="row justify-content-center">
-            <div class="col-lg-4 col-sm-8 px-sm-1 px-lg-5 py-3">
+    <main>
+        <div class="row justify-content-center mx-4">
+            <div class="col-lg-4 col-sm-8 px-sm-1 px-lg-5 py-3 transition-all">
                     <form class="m-auto row" id="city-form">
                         <label for="city-input" class="form-label h3 ">Search for a city:</label>
                         <input class="form-control" id="city-input" list="cities" placeholder="City Name...">
@@ -36,7 +36,7 @@
                         <div class="m-auto" id="past-searches"></div>
                     </form>
             </div>
-            <div class="row flex-column col-lg-8 col-sm-8" id="todays-weather">
+            <div class="row flex-column col-lg-5 col-sm-8 transition-all" id="todays-weather">
             </div>
             <!-- <div class="col-lg-4 col-sm-8 px-3 py-5">
                 <div class="row justify-content-end" id="weather-status">
@@ -50,7 +50,7 @@
                 </div>
             </div> -->
         </div>
-        <div class="row flex-sm-wrap flex-lg-nowrap col-lg-12 m-0 justify-content-around" id="forecast">
+        <div class="row flex-sm-wrap flex-lg-nowrap col-sm-6 col-md-12 mx-4 justify-content-around" id="forecast">
             
         </div>
     </main>
