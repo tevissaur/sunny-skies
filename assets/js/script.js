@@ -47,6 +47,7 @@ let searchHistory = searched => {
 
 // API Url and Key
 let baseUrl = 'https://api.openweathermap.org/data/2.5/onecall'
+let APIkey = '99614a3bd71c4f4912965f0c6b55b111'
 let APIcalls = 0
 
 
