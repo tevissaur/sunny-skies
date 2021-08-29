@@ -83,7 +83,7 @@ function createWeatherCard(city, temp, wind, humidity, UVindex, weather) {
     weatherCard.classList.add('card', 'my-5', 'm-auto', 'w-75', 'col-12', 'transition-all')
     cardHeader.classList.add('card-header', 'row')
     cardTitleImg.classList.add('p-0', 'img-thumbnail')
-    cardTitleImg.src = `http://openweathermap.org/img/wn/${weather.icon}.png`
+    cardTitleImg.src = `https://openweathermap.org/img/wn/${weather.icon}.png`
     cardTitleDate.classList.add('card-title', 'col-12')
     cardTitle.classList.add('card-title', 'w-fit-content')
     cardTitle.textContent = city
