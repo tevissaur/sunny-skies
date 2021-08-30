@@ -54,7 +54,7 @@ let APIcalls = 0
 // City names w lat and lon data 
 let cities
 // Fetching JSON file
-fetch('./assets/py_scripts/cities.json')
+fetch('./assets/cities.json')
     .then(function (response) {
         return response.json()
     })
@@ -132,7 +132,7 @@ function createForecastCards(day, temp, wind, humidity, UVindex, weather) {
     let cardList = document.createElement('ul')
 
     // Adding classes, textContent and attributes
-    weatherCard.classList.add('card', 'm-2', 'col-sm-6', 'col-md-12', 'col-lg-2', 'transition-all')
+    weatherCard.classList.add('card','m-3', 'col-md-4', 'col-lg-2', 'transition-all')
     cardHeader.classList.add('card-header', 'row')
     cardTitleImg.classList.add('p-0', 'img-thumbnail')
     cardTitleImg.src = `https://openweathermap.org/img/wn/${weather.icon}.png`
